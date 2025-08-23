@@ -1,0 +1,9 @@
+This is a dummy text file. It contains placeholder text for testing
+purposes.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat.
+
+End of dummy content.
