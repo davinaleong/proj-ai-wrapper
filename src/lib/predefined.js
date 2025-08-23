@@ -1,0 +1,475 @@
+// src/lib/predefined.js
+export const QA_BANK = [
+  // --- 3.32: Trends ----------------------------------------------------
+  {
+    id: "ph_trend_6m",
+    keywords: [
+      "ph trend last 6 months",
+      "ph 6 months",
+      "ph last 6 months",
+      "ph trend 6 months",
+    ],
+    patterns: [
+      /^\s*(what'?s|what is)?\s*ph\s*trend.*(6|six)\s*months?\s*$/i,
+      /ph\s*trend.*6\s*months/i,
+    ],
+    reply: "Stable at 7.1–7.4, with a minor dip in May due to rainfall.",
+    followups: [
+      "Why was pH higher for the previous 3 months?",
+      "Show a quick pH boxplot for the last 6 months",
+      "Compare pH trend across plants",
+    ],
+  },
+  {
+    id: "chlorine_residuals_last_quarter",
+    keywords: [
+      "chlorine residuals last quarter",
+      "residuals last quarter",
+      "cl residuals quarter",
+    ],
+    patterns: [/chlorine\s+residuals?.*(quarter|last\s*3\s*months)/i],
+    reply:
+      "Averaged 0.45 mg/L, with a spike to 0.55 mg/L in June during maintenance.",
+    followups: [
+      "Why did chlorine residuals spike in June?",
+      "Break residuals down by week",
+      "Alert me if residuals exceed 0.6 mg/L",
+    ],
+  },
+  {
+    id: "turbidity_trend_plant_a",
+    keywords: ["turbidity trend plant a", "ntu plant a", "turbidity plant a"],
+    patterns: [/turbidity.*plant\s*a/i],
+    reply: "Falling from 0.30 NTU in April to 0.18 NTU in July.",
+    followups: [
+      "Why was turbidity higher in April compared to July?",
+      "Show daily turbidity for Plant A",
+      "Compare Plant A vs Plant B turbidity",
+    ],
+  },
+  {
+    id: "lead_copper_trend_year",
+    keywords: [
+      "lead & copper trend",
+      "lead and copper trend",
+      "lead copper past year",
+    ],
+    patterns: [/lead.*copper.*(year|12\s*months)/i],
+    reply: "Stable. Lead 0.002–0.004 mg/L, copper ~0.12 mg/L.",
+    followups: [
+      "Why was copper slightly higher in August?",
+      "Plot monthly lead and copper side-by-side",
+      "Flag any site above action level",
+    ],
+  },
+  {
+    id: "coliform_west_trend",
+    keywords: [
+      "coliform trend western region",
+      "western coliform",
+      "coliform west",
+    ],
+    patterns: [/coliform.*(western|west)\s*region/i],
+    reply: "Non-detectable except 1 hit in May, resolved quickly.",
+    followups: [
+      "Why was coliform detected in May?",
+      "Show a timeline of the May incident",
+      "Compare coliform results across regions",
+    ],
+  },
+  {
+    id: "calibration_drift_toc_3m",
+    keywords: [
+      "calibration drift toc",
+      "toc analyzer drift",
+      "toc drift past 3 months",
+    ],
+    patterns: [/calibration\s+drift.*(toc|analy(s|z)er)/i],
+    reply: "TOC analyser drifted +0.2 mg/L before July recalibration.",
+    followups: [
+      "Why did the TOC analyser drift upward?",
+      "Show pre- vs post-calibration results",
+      "List instruments due for calibration",
+    ],
+  },
+  {
+    id: "rainfall_tds_corr",
+    keywords: ["rainfall vs tds correlation", "tds rainfall correlation"],
+    patterns: [/rainfall.*tds.*correlation/i],
+    reply: "Moderate negative correlation (r = -0.45).",
+    followups: [
+      "Why did rainfall reduce TDS so sharply in June?",
+      "Show correlation by month",
+      "Any outliers in TDS after storms?",
+    ],
+  },
+  {
+    id: "nitrate_seasonal_trend",
+    keywords: ["nitrate seasonal trend", "nitrates q1 vs q2"],
+    patterns: [/nitrate(s)?\s+season(al)?\s*trend/i],
+    reply: "Higher in Q1 (1.8 mg/L) vs Q2 (1.1 mg/L).",
+    followups: [
+      "Why were nitrates higher in Q1?",
+      "Map nitrates by catchment",
+      "Show top 5 sites by nitrate",
+    ],
+  },
+  {
+    id: "do_anomalies_last_quarter",
+    keywords: ["do anomalies last quarter", "dissolved oxygen anomalies"],
+    patterns: [/do\s+(anomal(y|ies)).*quarter/i],
+    reply: "Dip to 5.0 mg/L on 14 May, corrected after recalibration.",
+    followups: [
+      "Why did DO dip on 14 May?",
+      "Show DO trend for the last quarter",
+      "Check for co-occurring sensor faults",
+    ],
+  },
+  {
+    id: "conductivity_rising_which_plant",
+    keywords: ["which plant rising conductivity", "rising conductivity plant"],
+    patterns: [/which\s+plant.*rising\s+conductivity/i],
+    reply: "Plant B, 320 µS/cm in Apr ? 360 µS/cm in Jul.",
+    followups: [
+      "Why did Plant B show rising conductivity?",
+      "Compare conductivity across plants",
+      "Overlay rainfall on conductivity",
+    ],
+  },
+
+  // --- 3.33: Root causes ------------------------------------------------
+  {
+    id: "ph_rootcause_prev_3m",
+    keywords: [
+      "why was ph higher previous 3 months",
+      "ph high previous 3 months root cause",
+    ],
+    patterns: [/why.*ph.*(high|higher).*(previous|last)\s*3\s*months/i],
+    reply:
+      "Root cause points to seasonal algal bloom activity in reservoirs. Elevated algae increased CO2 uptake, temporarily raising pH. Treatment adjustments kept values within compliance.",
+    followups: [
+      "Show algal bloom indicators alongside pH",
+      "Did compliance limits get breached?",
+      "Compare pH at intake vs post-treatment",
+    ],
+  },
+  {
+    id: "chlorine_rootcause_june_spike",
+    keywords: [
+      "why chlorine residuals spike june",
+      "chlorine june spike reason",
+    ],
+    patterns: [/why.*chlorine.*(residuals)?.*spike.*june/i],
+    reply:
+      "Preventive dosing during scheduled pipeline maintenance. Operators raised residuals to offset potential microbial intrusion. Levels stabilised after maintenance.",
+    followups: [
+      "Break residuals down by week",
+      "Any customer complaints logged?",
+      "Show residuals vs flow during June",
+    ],
+  },
+  {
+    id: "turbidity_rootcause_april_high",
+    keywords: [
+      "why turbidity higher april than july",
+      "turbidity april reason",
+    ],
+    patterns: [/why.*turbidity.*(april).*compared.*july/i],
+    reply:
+      "Heavy rainfall disturbed sediments in April. Filter optimisation in June reduced turbidity back to baseline.",
+    followups: [
+      "Show rainfall vs turbidity",
+      "List interventions taken since April",
+      "Check particle counters in April",
+    ],
+  },
+  {
+    id: "metals_rootcause_copper_aug",
+    keywords: [
+      "why copper slightly higher august",
+      "copper august higher reason",
+    ],
+    patterns: [/why.*copper.*(slightly)?\s*higher.*aug(ust)?/i],
+    reply:
+      "Minor leaching from older distribution pipes during warm weather. Levels remained well below regulatory thresholds.",
+    followups: [
+      "Plot monthly lead and copper side-by-side",
+      "Any hotspots by district?",
+      "Cross-check pipe age vs copper",
+    ],
+  },
+  {
+    id: "coliform_rootcause_may",
+    keywords: ["why coliform detected may", "coliform may root cause"],
+    patterns: [/why.*coliform.*detected.*may/i],
+    reply:
+      "Temporary backflow event. Flushing and disinfection were performed immediately; follow-up samples confirmed no recurrence.",
+    followups: [
+      "Show a timeline of the May incident",
+      "Any repeat events after May?",
+      "Compare coliform results across regions",
+    ],
+  },
+  {
+    id: "calibration_rootcause_toc",
+    keywords: ["why toc analyser drift upward", "toc drift upward why"],
+    patterns: [/why.*toc.*drift.*upward/i],
+    reply:
+      "Gradual fouling of the sensor chamber. Recalibration and cleaning in July restored accuracy.",
+    followups: [
+      "Show pre- vs post-calibration results",
+      "List instruments due for calibration",
+      "Correlate drift with ambient temperature",
+    ],
+  },
+  {
+    id: "rainfall_tds_rootcause_june_dip",
+    keywords: [
+      "why rainfall reduce tds sharply june",
+      "tds sharp drop june reason",
+    ],
+    patterns: [/why.*rainfall.*reduce.*tds.*(sharply)?.*june/i],
+    reply:
+      "Dilution from heavy inflows lowered mineral concentration. No contamination detected—consistent with seasonal variation.",
+    followups: [
+      "Show correlation by month",
+      "Any conductivity changes in June?",
+      "Outliers after storm events?",
+    ],
+  },
+  {
+    id: "nitrates_rootcause_q1",
+    keywords: ["why nitrates higher q1", "nitrates higher in q1 reason"],
+    patterns: [/why.*nitrate(s)?.*higher.*q1/i],
+    reply:
+      "Runoff from upstream fertiliser use during planting season elevated nitrates. Seasonal pattern matches past years.",
+    followups: [
+      "Map nitrates by catchment",
+      "Show historical Q1 vs Q2",
+      "Top 5 sites by nitrate",
+    ],
+  },
+  {
+    id: "do_rootcause_may14",
+    keywords: ["why do dip 14 may", "do dip may 14 reason"],
+    patterns: [/why.*do.*dip.*(14|fourteen)\s*may/i],
+    reply:
+      "Sensor malfunction caused under-reporting. After recalibration, values matched baseline trend; no environmental impact confirmed.",
+    followups: [
+      "Show DO trend for the last quarter",
+      "Check for co-occurring sensor faults",
+      "Compare DO at adjacent stations",
+    ],
+  },
+  {
+    id: "conductivity_rootcause_plant_b",
+    keywords: [
+      "why plant b rising conductivity",
+      "plant b conductivity why rising",
+    ],
+    patterns: [/why.*plant\s*b.*rising.*conductivity/i],
+    reply:
+      "Increased inflows from a mineral-rich upstream source; confirmed by catchment monitoring data.",
+    followups: [
+      "Compare conductivity across plants",
+      "Overlay rainfall on conductivity",
+      "Show upstream source mineral profile",
+    ],
+  },
+
+  // --- 3.34: Adhoc sample counts --------------------------------------
+  {
+    id: "adhoc_plant_a_3m",
+    keywords: [
+      "how many adhoc samples plant a past 3 months",
+      "adhoc samples plant a 3 months",
+    ],
+    patterns: [
+      /adhoc.*samples?.*plant\s*a.*(past\s*3\s*months|last\s*quarter)/i,
+    ],
+    reply: "A total of 124 adhoc samples were collected between May–July 2025.",
+    followups: [
+      "Break Plant A adhoc samples down by week",
+      "Show daily counts for Plant A",
+      "Compare Plant A with Plant B",
+    ],
+  },
+  {
+    id: "adhoc_reservoir_b_last_week",
+    keywords: [
+      "adhoc sample count reservoir b last week",
+      "reservoir b adhoc last week",
+    ],
+    patterns: [/adhoc.*(samples?|count).*reservoir\s*b.*last\s*week/i],
+    reply: "12 adhoc samples were collected from 12–18 August 2025.",
+    followups: [
+      "Show which days were sampled last week",
+      "Compare Reservoir B to Reservoir A last week",
+      "Trend for Reservoir B over the last month",
+    ],
+  },
+  {
+    id: "adhoc_raw_water_2w",
+    keywords: [
+      "adhoc samples raw water past 2 weeks",
+      "raw water adhoc last 2 weeks",
+    ],
+    patterns: [
+      /adhoc.*samples?.*matrix.*raw\s*water.*(past|last)\s*2\s*weeks/i,
+    ],
+    reply: "26 adhoc samples were logged between 5–19 August 2025.",
+    followups: [
+      "Break Raw Water counts down by site",
+      "Show hourly intake vs sampling times",
+      "Any spikes around rain events?",
+    ],
+  },
+  {
+    id: "adhoc_micro_july",
+    keywords: [
+      "adhoc microbiology samples july",
+      "how many adhoc microbiology july",
+    ],
+    patterns: [/adhoc.*micro(biology|bio).*july/i],
+    reply: "47 adhoc microbiology samples were processed in July 2025.",
+    followups: [
+      "Split July microbiology by parameter",
+      "Turnaround time for July microbiology",
+      "Any repeats or re-tests in July?",
+    ],
+  },
+  {
+    id: "adhoc_all_sites_3m",
+    keywords: [
+      "adhoc sample volume across all sites past 3 months",
+      "all sites adhoc last 3 months",
+    ],
+    patterns: [
+      /adhoc.*(samples?|volume).*(across|all)\s*sites.*(past|last)\s*3\s*months/i,
+    ],
+    reply: "A total of 432 adhoc samples were recorded from May–July 2025.",
+    followups: [
+      "Break the 432 by site",
+      "Show weekly totals across sites",
+      "Which site had the most adhoc samples?",
+    ],
+  },
+
+  // --- 3.35: Program TATs ----------------------------------------------
+  {
+    id: "tat_wq_surveillance",
+    keywords: [
+      "tat water quality surveillance program",
+      "turnaround time water quality surveillance",
+    ],
+    patterns: [/turn\s*around\s*time|tat.*water\s*quality\s*surveillance/i],
+    reply:
+      "Average TAT is 3 working days. Urgent samples can be processed within 24 hours upon request.",
+    followups: [
+      "Which tests qualify for 24-hour TAT?",
+      "Show recent late cases for this program",
+      "Break down TAT by test type",
+    ],
+  },
+  {
+    id: "tat_industrial_discharge",
+    keywords: [
+      "tat industrial discharge monitoring program",
+      "turnaround time industrial discharge",
+    ],
+    patterns: [/tat|turn\s*around\s*time.*industrial\s*discharge/i],
+    reply:
+      "5 working days on average, depending on analyte complexity. Heavy metals may take up to 7 days.",
+    followups: [
+      "Which metals usually take 7 days?",
+      "Any rush options for discharge samples?",
+      "Recent late cases for this program",
+    ],
+  },
+  {
+    id: "tat_catchment_monitoring",
+    keywords: [
+      "tat catchment monitoring program",
+      "turnaround time catchment monitoring",
+    ],
+    patterns: [/tat|turn\s*around\s*time.*catchment\s*monitoring/i],
+    reply:
+      "Routine samples are completed within 4 working days. Rain-event samples may extend to 6 days due to volume.",
+    followups: [
+      "Show TAT during the last rain event",
+      "Split TAT by lab section",
+      "Any backlog flags last month?",
+    ],
+  },
+  {
+    id: "tat_reservoir_surveillance",
+    keywords: [
+      "tat reservoir surveillance program",
+      "turnaround time reservoir surveillance",
+    ],
+    patterns: [/tat|turn\s*around\s*time.*reservoir\s*surveillance/i],
+    reply:
+      "3–4 working days. Microbiological parameters are released earlier (2 days).",
+    followups: [
+      "Which microbiology tests release in 2 days?",
+      "Compare TAT across reservoir labs",
+      "Any repeated tests affecting TAT?",
+    ],
+  },
+  {
+    id: "tat_drinking_water_compliance",
+    keywords: [
+      "tat drinking water compliance program",
+      "turnaround time drinking water compliance",
+    ],
+    patterns: [/tat|turn\s*around\s*time.*drinking\s*water\s*compliance/i],
+    reply:
+      "Typically 2 working days for core parameters, up to 5 working days if additional QC is required.",
+    followups: [
+      "Which core parameters finish in 2 days?",
+      "Show cases needing extra QC last month",
+      "Any SLA breaches in the last quarter?",
+    ],
+  },
+
+  // --- Generic / helpers -----------------------------------------------
+  {
+    id: "ph_boxplot_6m",
+    keywords: ["show ph boxplot last 6 months", "ph boxplot 6 months"],
+    patterns: [/show.*ph.*boxplot.*(last|past)\s*6\s*months/i],
+    reply:
+      "Boxplot-ready pH summary prepared for the last 6 months. (Use your chart module to render.)",
+    followups: [
+      "Compare pH trend across plants",
+      "Did compliance limits get breached?",
+      "Show algal bloom indicators alongside pH",
+    ],
+  },
+  {
+    id: "compare_ph_across_plants",
+    keywords: ["compare ph across plants", "ph comparison plants"],
+    patterns: [/compare.*ph.*across.*plants/i],
+    reply:
+      "Prepared a comparative pH summary across plants. (Use your chart/table module to render.)",
+    followups: [
+      "Overlay rainfall on pH by plant",
+      "Check any plant breaching action levels",
+      "Show pH variability by shift",
+    ],
+  },
+  {
+    id: "residuals_by_week",
+    keywords: ["break residuals down by week", "residuals weekly breakdown"],
+    patterns: [/break.*residuals?.*down.*week/i],
+    reply:
+      "Weekly chlorine residuals table prepared. (Use your table module to display.)",
+    followups: [
+      "Show residuals vs flow during June",
+      "Any customer complaints logged?",
+      "Alert me if residuals exceed 0.6 mg/L",
+    ],
+  },
+]
+
+export const QA_FALLBACK_REPLY =
+  "I'm using a predefined Q&A set and couldn’t find a close match. Try a simpler phrasing or a known keyword (e.g., “pH trend last 6 months”)."
