@@ -1,3 +1,3 @@
-# AI API Wrapper
+# AI Wrapper
 
 This is my wrapper to test differnt AI providers.
