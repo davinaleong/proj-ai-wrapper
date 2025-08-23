@@ -6,8 +6,8 @@ import morgan from 'morgan';
 
 import v1 from './routes/v1.js';
 import v2 from './routes/v2.js';     // will be used later
-import v3 from './routes/v3.js';     // will be used later
-import v4 from './routes/v4.js';     // will be used later
+//import v3 from './routes/v3.js';     // will be used later
+//import v4 from './routes/v4.js';     // will be used later
 
 const app = express();
 app.use(cors());
@@ -21,8 +21,8 @@ app.use('/assets/images', express.static(path.resolve('src/assets/images')));
 // versioned routers
 app.use('/v1', v1);
 app.use('/v2', v2);
-app.use('/v3', v3);
-app.use('/v4', v4);
+// app.use('/v3', v3);
+// app.use('/v4', v4);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
