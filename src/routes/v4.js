@@ -3,8 +3,8 @@ import express from 'express';
 import path from 'node:path';
 import fs from 'node:fs/promises';
 
-import { PREDEFINED_QA } from '../lib/predefined.js';
-import { FILE_QA_BANK } from '../lib/predefined_files.js';
+import { QA_BANK } from '../lib/predefined.js';
+import { FILE_QA_BANK } from '../lib/predefinedFiles.js';
 import { matchPredefinedAdvanced } from '../lib/match.js';
 import { PROVIDERS } from '../providers/index.js';
 
@@ -78,7 +78,7 @@ router.get('/files', async (req, res) => {
  *      - if returnLink === true -> JSON with link (compat)
  *      - else -> immediately send file (binary), using res.download (or res.sendFile if inline)
  *    If file missing -> 404 JSON with guidance.
- * 2) Else if prompt matches regular PREDEFINED_QA -> JSON text reply.
+ * 2) Else if prompt matches regular QA_BANK -> JSON text reply.
  * 3) Else -> call provider (v2 behavior) -> JSON reply.
  */
 router.post('/chat', async (req, res) => {
@@ -130,10 +130,6 @@ router.post('/chat', async (req, res) => {
       }
 
       // --- IMMEDIATE FILE SERVE (default) ---
-      // Send a short header so the chatbot client can display text if desired.
-      // Many clients ignore custom headers; it's optional. The response body will be the file.
-      res.setHeader('X-Message', item.reply.replace(/\n/g, ' '));
-
       const abs = safeResolve(root, fileDef.filename);
       const downloadName = path.basename(fileDef.filename);
 
@@ -148,7 +144,7 @@ router.post('/chat', async (req, res) => {
     }
 
     // (2) Normal predefineds (text-only)
-    const textHit = matchPredefinedAdvanced(prompt, PREDEFINED_QA);
+    const textHit = matchPredefinedAdvanced(prompt, QA_BANK);
     if (textHit?.item) {
       return res.json({
         id: `predef_${textHit.item.id}_${Date.now()}`,
