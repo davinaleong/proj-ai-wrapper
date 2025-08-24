@@ -83,7 +83,7 @@ router.get('/files', async (req, res) => {
  */
 router.post('/chat', async (req, res) => {
   try {
-    const { prompt, provider = 'openai', model, inline = false, returnLink = false, attachments = [] } = req.body ?? {};
+    const { prompt, provider = 'aiml', model, inline = false, returnLink = false, attachments = [] } = req.body ?? {};
     if (!prompt || typeof prompt !== 'string') {
       return res.status(400).json({ error: 'prompt (string) is required' });
     }
