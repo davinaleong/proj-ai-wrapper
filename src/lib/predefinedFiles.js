@@ -1,9 +1,6 @@
 // src/lib/predefined_files.js
-// Predefined prompts that specifically return a document (report) or image (chart)
-// Served from /documents and /images in /public
-
 export const FILE_QA_BANK = [
-  // -------------------- Documents (Reports) --------------------
+  // Documents (Reports)
   {
     id: "report_monthly_water_quality",
     kind: "document",
@@ -12,30 +9,27 @@ export const FILE_QA_BANK = [
       "get monthly water quality report",
       "download monthly report",
       "monthly wq report",
-      "email monthly report",
-      "share monthly report",
-      "open monthly report",
-      "view monthly report",
     ],
-    patterns: [
-      /(send|get|download|email|share|open|view).*(monthly).*(water\s*quality|wq).*(report)/i,
-      /(monthly).*(report).*(water\s*quality|wq)/i,
-    ],
+    patterns: [/send|get|download.*(monthly).*(water\s*quality|wq).*(report)/i],
     attachments: [{ type: "document", filename: "dummy.pdf" }],
-    reply:
-      "Here’s the **Monthly Water Quality Report (dummy.pdf)**.\n\n" +
-      "Executive summary (demo values):\n" +
-      "• pH (monthly means, sd, n): MacRitchie 7.12–7.28 (sd ≤0.06, n=4–5), Bedok 7.24–7.41 (sd ≤0.05), Upper Peirce 7.19–7.20 (sd ≤0.04), Marina 7.35→7.74 (algal influence).\n" +
-      "• Free chlorine residuals: mean 0.45 mg/L (P10 0.38, P90 0.53); June uplift annotated as MAINT.\n" +
-      "• Turbidity (Plant A effluent): Apr 0.30 NTU → Jul 0.18 NTU; P95 0.24 NTU; no UCL(3σ) breaches post-optimisation.\n" +
-      "• Metals (ICP-MS): Pb 0.002–0.004 mg/L; Cu 0.10–0.14 mg/L; blanks < RL; CRM 95–104%.\n" +
-      "• Microbiology: ND throughout; single historical hit in May elsewhere cleared within 48 h.\n\n" +
-      "QC / methods:\n" +
-      "• pH: field sonde weekly-calibrated (buffers 4.01/7.00/10.01), drift <0.02; bench verification ±0.02.\n" +
-      "• Turbidity: bench standards 0.3/1.0 NTU within ±10%; online vs bench bias ≤0.02.\n" +
-      "• Metals: per 20 samples—1 method blank, 1 field blank, 1 matrix spike, 1 CRM; acceptance 90–110%.\n\n" +
-      "Use: circulate to section leads; reference for weekly briefings and WTP setpoint review.\n" +
-      "Notes: Report contents and values are demo placeholders for a prototype.",
+    reply: `MONTHLY WATER QUALITY REPORT (Summary)
+
+HIGH PRIORITY PARAMETERS:
+• pH: 7.1 – 7.4 (≈ 85% of guideline range)
+• Free Chlorine: 0.45 mg/L (within operational target)
+
+MODERATE PRIORITY:
+• Residual Chlorine: 60.8% of USEPA limit (2.43 / 4.0 mg/L)
+
+LOW RISK PARAMETERS:
+• Copper: 99.8% safety margin (0.002–0.004 mg/L, only 0.2% of limit used)
+• Turbidity: 98.4% safety margin (0.18–0.30 NTU, well below 1 NTU limit)
+• Boron: 87.7% safety margin (0.35 mg/L vs 2.8 mg/L guideline)
+
+NOTES:
+• All values within SLA, no breaches
+• Use: Share with section leads for weekly briefings
+• Data placeholders for demo only`,
   },
 
   {
@@ -45,78 +39,104 @@ export const FILE_QA_BANK = [
       "send quarterly ops summary",
       "download quarterly ops report",
       "quarterly operations report",
-      "email quarterly ops",
-      "share quarterly ops",
-      "open quarterly report",
-      "view quarterly report",
     ],
-    patterns: [
-      /quarter(ly)?.*(ops|operations).*(summary|report)/i,
-      /(send|download|email|share|open|view).*(quarter(ly)?).*(ops|operations).*(report|summary)/i,
-    ],
+    patterns: [/quarter(ly)?.*(ops|operations).*(summary|report)/i],
     attachments: [{ type: "document", filename: "dummy.docx" }],
-    reply:
-      "Here’s the **Quarterly Operations Summary (dummy.docx)**.\n\n" +
-      "Highlights (demo values):\n" +
-      "• Planned maintenance: completed on schedule; residuals held at 0.50–0.55 mg/L during windows; rapid ramp-down <24 h.\n" +
-      "• Filtration performance: Plant A optimisation (mid-Jun) reduced mean turbidity to 0.18 NTU and particles ≥2 µm from 530/mL → 220/mL.\n" +
-      "• Downtime: zero long-duration outages; cumulative <60 min minor stoppages (valve interlocks).\n" +
-      "• Energy & throughput: specific energy ~0.42 kWh/m³ (±0.03); average throughput 92% of rated.\n\n" +
-      "Action items:\n" +
-      "• Keep headloss-based backwash triggers; validate against raw NTU spikes (>5 NTU at intake).\n" +
-      "• Maintain analyzer auto-clean cadence; verify weekly DPD/online agreement (±0.05 mg/L).\n\n" +
-      "Notes: Data is demo-only; structure mirrors production quarterly packs.",
+    reply: `QUARTERLY OPERATIONS SUMMARY (Highlights)
+
+KEY OUTCOMES:
+• Planned maintenance completed on schedule
+• Filter optimisation reduced turbidity variance
+• Chlorine dosing held steady with no breach
+• No long-duration outages observed
+
+OPERATIONAL NOTES:
+• Continued reliance on headloss-based backwash triggers
+• Routine QC aligned with internal QA standards
+• No SLA breaches recorded
+
+NOTES:
+• Reference for management updates
+• Demo data only`,
   },
 
-  // ---------------------- Images (Charts) ----------------------
+  // Images (Charts) – link to your real charts
   {
-    id: "chart_turbidity_trend_plant_a",
+    id: "chart_rl_distribution",
     kind: "image",
     keywords: [
-      "send turbidity trend chart plant a",
-      "download turbidity chart plant a",
-      "turbidity chart plant a",
-      "open turbidity chart plant a",
-      "view turbidity chart plant a",
+      "send rl distribution chart",
+      "download rl distribution",
+      "rl chart",
     ],
-    patterns: [/turbidity.*chart.*plant\s*a/i, /(send|download|open|view).*(turbidity).*plant\s*a/i],
-    attachments: [{ type: "image", filename: "dummy.png" }],
-    reply:
-      "Attached: **Turbidity Trend — Plant A (dummy.png)**.\n\n" +
-      "Technical notes (demo values):\n" +
-      "• Apr→Jul mean: 0.30 → 0.18 NTU; P95 0.24 NTU; UCL(3σ) 0.32 NTU; no breaches post-mid-Jun optimisation.\n" +
-      "• Event markers: maintenance window in Jun; filter-to-waste extension 3→6 min; headloss-based backwash adopted.\n" +
-      "• QC: online vs bench bias ≤0.02 NTU; standards 0.3/1.0 NTU within ±10%.\n\n" +
-      "Use: include in optimisation reviews and incident post-mortems.\n" +
-      "Notes: Placeholder chart for demo.",
+    patterns: [/rl.*distribution/i],
+    attachments: [{ type: "image", filename: "rl_distribution.png" }],
+    reply: `RL DISTRIBUTION (Across Parameters)
+
+• Most results clustered between 0 – 1.0 mg/L
+• Secondary peaks observed at 5, 9, and 12 mg/L bins
+• High count at “1.0 mg/L” bin reflects default reporting limits
+
+Ops Note: Focus QC verification for bins ≤ 1.0 mg/L.`,
   },
 
   {
-    id: "chart_chlorine_weekly",
+    id: "chart_counts_by_matrix",
     kind: "image",
     keywords: [
-      "send weekly chlorine residual chart",
-      "download chlorine weekly chart",
-      "weekly chlorine chart",
-      "open chlorine chart",
-      "view chlorine chart",
-      "share chlorine chart",
+      "send frequency per matrix chart",
+      "download matrix counts chart",
+      "sampling matrix frequency",
     ],
-    patterns: [
-      /weekly.*chlorine.*(residual)?.*chart/i,
-      /(send|download|open|view|share).*(chlorine).*(weekly|week).*chart/i,
+    patterns: [/counts?.*matrix.*frequency/i],
+    attachments: [{ type: "image", filename: "counts_by_freq_matrix.png" }],
+    reply: `COUNTS BY FREQUENCY PER MATRIX
+
+• Distribution mains dominate biannual, monthly, and quarterly frequencies
+• Catchment sites show higher annual frequency sampling
+• NEWater contributes significantly at weekly sampling
+
+Ops Note: Align manpower planning to peak quarterly workloads.`,
+  },
+
+  {
+    id: "chart_sampling_points_by_source",
+    kind: "image",
+    keywords: [
+      "send distinct sampling points chart",
+      "download sampling points by source",
+      "sampling points chart",
     ],
-    attachments: [{ type: "image", filename: "dummy.jpg" }],
-    reply:
-      "Attached: **Weekly Free Chlorine Residuals (dummy.jpg)**.\n\n" +
-      "Interpretation (demo values):\n" +
-      "• Weekly mean ≈0.45 mg/L (P10 0.38, P90 0.53); June spike to 0.55 mg/L corresponds to planned maintenance uplift.\n" +
-      "• Alarm thresholds: low 0.30 mg/L, high 0.60 mg/L (none exceeded).\n" +
-      "• QC: DPD bench checks within ±0.05 mg/L of online; annotated outliers flagged MAINT in LIMS.\n\n" +
-      "Use: show trends during toolbox talks and maintenance planning.\n" +
-      "Notes: Placeholder image for demo.",
+    patterns: [/sampling.*points.*source/i],
+    attachments: [{ type: "image", filename: "distinct_sampling_points_by_source.png" }],
+    reply: `DISTINCT SAMPLING POINTS BY SOURCE
+
+• Direct supply ~310 points
+• Indirect supply ~240 points
+• Inlets and outlets fewer (<50 each)
+
+Ops Note: Sampling density highest in distribution mains.`,
+  },
+
+  {
+    id: "chart_parameters_by_classification",
+    kind: "image",
+    keywords: [
+      "send parameter classification chart",
+      "download classification chart",
+      "parameters by class",
+    ],
+    patterns: [/parameters?.*classification/i],
+    attachments: [{ type: "image", filename: "parameters_by_classification.png" }],
+    reply: `PARAMETERS BY CLASSIFICATION
+
+• Radiological Quality largest share (~900,000 test codes)
+• Inorganics, biologicals, and pesticides comparatively smaller
+• Algal parameters lowest count
+
+Ops Note: Radiological tests drive method throughput.`,
   },
 ];
 
 export const FILE_QA_FALLBACK =
-  "I couldn’t find a matching file request. Try: “send monthly water quality report” or “send turbidity chart Plant A”.";
+  "I couldn’t find a matching file request. Try: “send RL distribution chart” or “send monthly water quality report”.";
