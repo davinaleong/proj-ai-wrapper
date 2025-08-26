@@ -1,0 +1,87 @@
+PUB LIMS Operational Summary Report
+============================================================
+This report summarizes sampling program outputs, reporting 
+limit distributions, and parameter classifications from the 
+LIMS system. Charts referenced represent frequency distributions, 
+distinct sampling coverage, and classification breakdowns.
+
+Charts
+------------------------------------------------------------
+1. Counts by Frequency per Matrix
+   [CHART: counts_by_freq_matrix.png]
+   - Distribution mains dominate quarterly and monthly schedules.
+
+2. Distinct Sampling Points by Source
+   [CHART: distinct_sampling_points_by_source.png]
+   - Direct supply has the highest count (~310 points).
+
+3. Parameters by Classification
+   [CHART: parameters_by_classification.png]
+   - Radiological Quality accounts for majority of tests 
+     (>900,000 codes).
+
+4. RL Distribution
+   [CHART: rl_distribution.png]
+   - Most results clustered ≤ 1.0 mg/L with secondary peaks 
+     at 5, 9, 12 mg/L bins.
+
+5. Sampling Workflow
+   [FLOW: samp_workflow.png]
+
+Key Highlights
+------------------------------------------------------------
+Category                | Observation
+------------------------------------------------------------
+Sampling Frequency      | Distribution mains dominate quarterly 
+                        | and monthly schedules.
+
+Sampling Points         | Direct supply has the highest count 
+                        | (~310 points).
+
+Parameter Classes       | Radiological Quality accounts for 
+                        | majority of tests (>900,000 codes).
+
+RL Distribution         | Most results clustered ≤ 1.0 mg/L with 
+                        | secondary peaks at 5, 9, 12 mg/L bins.
+
+Predefined Q&A Knowledge Base (QA_BANK)
+------------------------------------------------------------
+1. pH Trend (6 months)
+   - Stability observed across reservoirs (6.5–8.5 guideline). 
+   - Notable rise in Marina due to algal bloom.
+   Follow-ups: Why was pH high in June–July? Show MacRitchie vs Bedok trend.
+
+2. Chlorine Residuals (last quarter)
+   - Avg. 0.45 mg/L with controlled peak at 0.55 mg/L (maintenance). 
+   - No microbiological impact observed.
+   Follow-ups: Why spike in June? Weekly breakdown? Alert if >0.6 mg/L.
+
+3. Turbidity (Plant A)
+   - Improved from 0.30 NTU (Apr) → 0.18 NTU (Jul). 
+   - Filter optimisation and headloss-based triggers effective.
+   Follow-ups: Why higher in Apr? Show daily data. Compare Plant A vs B.
+
+4. Lead & Copper (yearly)
+   - Lead stable (0.002–0.004 mg/L), Copper stable (0.10–0.14 mg/L). 
+   - QC via ICP-MS and ICP-OES.
+   Follow-ups: Why higher Cu in Aug? Monthly comparison? Alert for exceedances.
+
+5. Coliforms (West region)
+   - One isolated hit in May (1 CFU/100 mL); flushed and resolved. 
+   - No systemic issues.
+   Follow-ups: Why detected in May? Incident timeline? Regional comparison.
+
+6. Root Cause – High pH (Marina)
+   - Driven by algal bloom, low inflow, high DO during midday. 
+   - Actions: Aeration curtains, PAC dosing.
+   Follow-ups: Show pH vs DO overlay. List bloom days. Chlorophyll-a levels.
+
+7. Ad-hoc Samples (Bedok, 3 months)
+   - Total: 45 bottles. Triggered by rainfall & maintenance. 
+   - Parameters: Metals, Turbidity, Microbiology.
+   Follow-ups: Breakdown by parameter. Turbidity vs TSS after storm. Micro positives?
+
+8. Turnaround Time (RW Inlet)
+   - Microbiology: 3–4 days. Physico-chemical: 2–3 days. 
+   - Metals: 5–7 days. Organics: 5–10 days.
+   Follow-ups: Expedite with TAT-PRIORITY. Show pending QA. What causes delays?

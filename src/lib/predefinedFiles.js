@@ -10,8 +10,16 @@ export const FILE_QA_BANK = [
       "download monthly report",
       "monthly wq report",
     ],
-    patterns: [/send|get|download.*(monthly).*(water\s*quality|wq).*(report)/i],
-    attachments: [{ type: "document", filename: "dummy.pdf" }],
+    // Require all three tokens: monthly + (water quality|wq) + report
+    // and explicitly NOT 'quarter'
+    patterns: [
+      /(?=.*\bmonthly\b)(?=.*\b(water\s*quality|wq)\b)(?=.*\breport\b)(?!.*\bquarter)/i
+    ],
+    // Prefer PDF; fall back to TXT if PDF missing
+    attachments: [
+      { type: "document", filename: "LIMS_Report.pdf" },
+      { type: "document", filename: "LIMS_Report.txt" } // fallback
+    ],
     reply: `MONTHLY WATER QUALITY REPORT (Summary)
 
 HIGH PRIORITY PARAMETERS:
@@ -22,14 +30,13 @@ MODERATE PRIORITY:
 • Residual Chlorine: 60.8% of USEPA limit (2.43 / 4.0 mg/L)
 
 LOW RISK PARAMETERS:
-• Copper: 99.8% safety margin (0.002–0.004 mg/L, only 0.2% of limit used)
-• Turbidity: 98.4% safety margin (0.18–0.30 NTU, well below 1 NTU limit)
-• Boron: 87.7% safety margin (0.35 mg/L vs 2.8 mg/L guideline)
+• Copper: 99.8% safety margin (0.002–0.004 mg/L)
+• Turbidity: 0.18–0.30 NTU (well below 1 NTU)
+• Boron: 0.35 mg/L vs 2.8 mg/L guideline
 
 NOTES:
-• All values within SLA, no breaches
-• Use: Share with section leads for weekly briefings
-• Data placeholders for demo only`,
+• SLA met, no breaches
+• Share with section leads for weekly briefings`,
   },
 
   {
@@ -39,45 +46,39 @@ NOTES:
       "send quarterly ops summary",
       "download quarterly ops report",
       "quarterly operations report",
+      "quarterly ops summary report",
     ],
-    patterns: [/quarter(ly)?.*(ops|operations).*(summary|report)/i],
-    attachments: [{ type: "document", filename: "dummy.docx" }],
+    // Require quarter(ly) + (ops|operations) + (summary|report)
+    patterns: [
+      /(?=.*\bquarter(?:ly)?\b)(?=.*\b(ops|operations)\b)(?=.*\b(summary|report)\b)/i
+    ],
+    // Prefer DOCX; fall back to TXT if DOCX missing
+    attachments: [
+      { type: "document", filename: "LIMS_Report.docx" },
+      { type: "document", filename: "LIMS_Report.txt" } // fallback
+    ],
     reply: `QUARTERLY OPERATIONS SUMMARY (Highlights)
 
 KEY OUTCOMES:
-• Planned maintenance completed on schedule
-• Filter optimisation reduced turbidity variance
-• Chlorine dosing held steady with no breach
-• No long-duration outages observed
+• Planned maintenance on schedule
+• Filter optimisation ↓ turbidity variance
+• Chlorine dosing steady, no breach
+• No long-duration outages
 
 OPERATIONAL NOTES:
-• Continued reliance on headloss-based backwash triggers
-• Routine QC aligned with internal QA standards
-• No SLA breaches recorded
-
-NOTES:
-• Reference for management updates
-• Demo data only`,
+• Headloss-based backwash triggers
+• QC aligned with internal QA
+• No SLA breaches`,
   },
 
-  // Images (Charts) – link to your real charts
+  // Images (Charts)
   {
     id: "chart_rl_distribution",
     kind: "image",
-    keywords: [
-      "send rl distribution chart",
-      "download rl distribution",
-      "rl chart",
-    ],
-    patterns: [/rl.*distribution/i],
+    keywords: ["send rl distribution chart", "download rl distribution", "rl chart"],
+    patterns: [/rl\s*distribution/i],
     attachments: [{ type: "image", filename: "rl_distribution.png" }],
-    reply: `RL DISTRIBUTION (Across Parameters)
-
-• Most results clustered between 0 – 1.0 mg/L
-• Secondary peaks observed at 5, 9, and 12 mg/L bins
-• High count at “1.0 mg/L” bin reflects default reporting limits
-
-Ops Note: Focus QC verification for bins ≤ 1.0 mg/L.`,
+    reply: `RL DISTRIBUTION — Most results ≤ 1.0 mg/L; secondary peaks at 5, 9, 12 mg/L. Focus QC near ≤1.0 mg/L bins.`,
   },
 
   {
@@ -86,17 +87,11 @@ Ops Note: Focus QC verification for bins ≤ 1.0 mg/L.`,
     keywords: [
       "send frequency per matrix chart",
       "download matrix counts chart",
-      "sampling matrix frequency",
+      "sampling matrix frequency"
     ],
-    patterns: [/counts?.*matrix.*frequency/i],
+    patterns: [/(?=.*counts?).*(?=.*matrix).*(?=.*frequency)/i],
     attachments: [{ type: "image", filename: "counts_by_freq_matrix.png" }],
-    reply: `COUNTS BY FREQUENCY PER MATRIX
-
-• Distribution mains dominate biannual, monthly, and quarterly frequencies
-• Catchment sites show higher annual frequency sampling
-• NEWater contributes significantly at weekly sampling
-
-Ops Note: Align manpower planning to peak quarterly workloads.`,
+    reply: `COUNTS BY FREQUENCY PER MATRIX — Distribution mains dominate quarterly/monthly; catchments higher annually; NEWater weekly.`,
   },
 
   {
@@ -105,17 +100,11 @@ Ops Note: Align manpower planning to peak quarterly workloads.`,
     keywords: [
       "send distinct sampling points chart",
       "download sampling points by source",
-      "sampling points chart",
+      "sampling points chart"
     ],
-    patterns: [/sampling.*points.*source/i],
+    patterns: [/(?=.*sampling).*(?=.*points).*(?=.*source)/i],
     attachments: [{ type: "image", filename: "distinct_sampling_points_by_source.png" }],
-    reply: `DISTINCT SAMPLING POINTS BY SOURCE
-
-• Direct supply ~310 points
-• Indirect supply ~240 points
-• Inlets and outlets fewer (<50 each)
-
-Ops Note: Sampling density highest in distribution mains.`,
+    reply: `DISTINCT SAMPLING POINTS BY SOURCE — Direct supply ~310, indirect ~240; inlets/outlets <50.`,
   },
 
   {
@@ -124,19 +113,13 @@ Ops Note: Sampling density highest in distribution mains.`,
     keywords: [
       "send parameter classification chart",
       "download classification chart",
-      "parameters by class",
+      "parameters by class"
     ],
-    patterns: [/parameters?.*classification/i],
+    patterns: [/(parameters?).*(classification)/i],
     attachments: [{ type: "image", filename: "parameters_by_classification.png" }],
-    reply: `PARAMETERS BY CLASSIFICATION
-
-• Radiological Quality largest share (~900,000 test codes)
-• Inorganics, biologicals, and pesticides comparatively smaller
-• Algal parameters lowest count
-
-Ops Note: Radiological tests drive method throughput.`,
+    reply: `PARAMETERS BY CLASSIFICATION — Radiological Quality largest share; algal parameters lowest.`,
   },
 ];
 
 export const FILE_QA_FALLBACK =
-  "I couldn’t find a matching file request. Try: “send RL distribution chart” or “send monthly water quality report”.";
+  "I couldn’t find a matching file request. Try: “send monthly water quality report” or “send quarterly ops summary”.";

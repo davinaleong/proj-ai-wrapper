@@ -89,7 +89,63 @@ router.post('/chat', async (req, res) => {
     }
 
     // (1) File-oriented predefineds first
-    const fileHit = matchPredefinedAdvanced(prompt, FILE_QA_BANK);
+    const fileHit = matchPredefinedAdvanced(prompt, FILE_QA_BANK, { prefer: 'pattern' });
+    if (fileHit?.item) {
+      const item = fileHit.item;
+      const files = Array.isArray(item.attachments) ? item.attachments : [];
+      if (files.length === 0) {
+        return res.status(500).json({ error: 'No attachment configured for this file prompt.' });
+      }
+
+      // Select first existing file in declared order
+      let selected = null;
+      const expected = [];
+      for (const f of files) {
+        if (!f?.type || !f?.filename) continue;
+        if (!['document', 'image'].includes(f.type)) continue;
+
+        const root = f.type === 'document' ? ROOT_DOCS : ROOT_IMGS;
+        expected.push(`${root}${path.sep}${f.filename}`);
+
+        // stop at the first that exists
+        /* eslint-disable no-await-in-loop */
+        if (await fileExists(f.type, f.filename)) {
+          selected = { ...f, root };
+          break;
+        }
+      }
+
+      if (!selected) {
+        return res.status(404).json({
+          error: 'No available attachment (checked primary and fallbacks).',
+          expected_locations: expected,
+          hint: 'Ensure at least one file is present under public/documents or public/images.'
+        });
+      }
+
+      if (returnLink) {
+        return res.json({
+          id: `filepredef_${item.id}_${Date.now()}`,
+          provider: 'predefined',
+          model: 'predefined',
+          matched: { id: item.id, by: fileHit.matchedBy, score: fileHit.score },
+          content: [{ type: 'text', text: item.reply }],
+          attachments: [{
+            type: selected.type,
+            filename: selected.filename,
+            url: buildFileUrl(req, selected.type, selected.filename)
+          }]
+        });
+      }
+
+      // Serve file immediately (inline or download)
+      const abs = safeResolve(selected.root, selected.filename);
+      const downloadName = path.basename(selected.filename);
+      if (inline) {
+        return res.sendFile(abs, { headers: { 'Content-Disposition': `inline; filename="${downloadName}"` } });
+      }
+      return res.download(abs, downloadName);
+    }
     if (fileHit?.item) {
       const item = fileHit.item;
 
